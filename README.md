@@ -1,8 +1,8 @@
-#Example TOTP usage
+# Example TOTP usage
 
 _TOTP - Time-based One Time Password_
 
-####Dependencies:
+#### Dependencies:
 
 * [Gotp](https://github.com/xlzd/gotp)
 * [Fiber](https://github.com/gofiber/fiber)
