@@ -4,6 +4,7 @@ import (
 	"github.com/go-playground/validator"
 	"github.com/gofiber/fiber/v2"
 	"go-totp-example/services"
+	"go-totp-example/utils"
 )
 
 type TOTPController struct {
@@ -33,7 +34,7 @@ func (tc *TOTPController) Validate(ctx *fiber.Ctx) error {
 		})
 	}
 
-	if !tc.otpService.Verify(req.Code, req.Time) {
+	if !tc.otpService.Verify(utils.UserSecret, req.Code, req.Time) {
 		return ctx.Status(fiber.StatusForbidden).JSON(fiber.Map{
 			"error": "invalid totp code",
 		})

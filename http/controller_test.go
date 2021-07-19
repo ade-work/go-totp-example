@@ -58,6 +58,28 @@ func Test_Validate_InvalidCode(t *testing.T) {
 	assert.Contains(t, msg, "failed on the 'len' tag")
 }
 
+func TestSuccess(t *testing.T) {
+	t.Parallel()
+	s := gotp.New()
+
+	tm, err := time.Parse(time.RFC3339, "2021-07-19T23:08:07+03:00")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	code := "275009"
+
+	body := fmt.Sprintf(`{"code": "%s", "time": "%s"}`, code, tm.Format(time.RFC3339))
+
+	c := testCtx(body)
+
+	assert.Nil(t, NewTOTPController(s).Validate(c))
+	statusCode, msg := getResponseResult(c)
+
+	assert.Equal(t, statusCode, 200)
+	assert.Contains(t, msg, "success")
+}
+
 func testCtx(body string) *fiber.Ctx {
 	app := fiber.New()
 
