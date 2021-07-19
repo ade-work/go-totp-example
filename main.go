@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/joho/godotenv"
 	"github.com/pkg/errors"
-	"go-totp-example/router"
+	"go-totp-example/http"
 	"log"
 )
 
@@ -12,7 +12,7 @@ const appPort = ":3000"
 func main() {
 	initEnv()
 
-	app := router.New()
+	app := http.NewRouter()
 	log.Fatal(app.Listen(appPort))
 }
 
